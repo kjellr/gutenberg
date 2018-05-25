@@ -2,7 +2,7 @@
  * External dependencies
  */
 import classnames from 'classnames';
-import { isFinite, find, omit } from 'lodash';
+import { isFinite, find, last, omit } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -236,14 +236,12 @@ class ParagraphBlock extends Component {
 								if ( after ) {
 									blocks.push( createBlock( name, { content: after } ) );
 								}
+								const replaceArrayStart = before ?
+									[ createBlock( name, { ...attributes, content: before } ) ] :
+									[];
 
-								insertBlocksAfter( blocks );
-
-								if ( before ) {
-									setAttributes( { content: before } );
-								} else {
-									onReplace( [] );
-								}
+								const newBlocks = replaceArrayStart.concat( blocks );
+								onReplace( newBlocks, last( newBlocks ).uid );
 							} :
 							undefined
 						}

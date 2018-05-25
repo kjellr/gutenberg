@@ -684,12 +684,12 @@ const applyWithDispatch = withDispatch( ( dispatch, ownProps ) => {
 		onMerge( ...args ) {
 			mergeBlocks( ...args );
 		},
-		onReplace( blocks ) {
+		onReplace( blocks, blockToSelect ) {
 			const { layout } = ownProps;
 			blocks = castArray( blocks ).map( ( block ) => (
-				cloneBlock( block, { layout } )
+				{ ...block, layout }
 			) );
-			replaceBlocks( [ ownProps.uid ], blocks );
+			replaceBlocks( [ ownProps.uid ], blocks, blockToSelect );
 		},
 		onMetaChange( meta ) {
 			editPost( { meta } );

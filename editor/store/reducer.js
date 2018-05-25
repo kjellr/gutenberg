@@ -673,9 +673,12 @@ export function blockSelection( state = {
 				return state;
 			}
 
-			// If there is replacement block(s), assign first's UID as the next
-			// selected block. If empty replacement, reset to null.
-			const nextSelectedBlockUID = get( action.blocks, [ 0, 'uid' ], null );
+			// If blockToSelectUid is set assign it as the next selected block.
+			// Otherwise, If there is replacement block(s), assign first's UID
+			// as the next selected block. If empty replacement, reset to null.
+			const nextSelectedBlockUID = action.selectBlock ?
+				action.selectBlock :
+				get( action.blocks, [ 0, 'uid' ], null );
 
 			return {
 				...state,

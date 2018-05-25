@@ -194,17 +194,19 @@ export function toggleSelection( isSelectionEnabled = true ) {
  * Returns an action object signalling that a blocks should be replaced with
  * one or more replacement blocks.
  *
- * @param {(string|string[])} uids   Block UID(s) to replace.
- * @param {(Object|Object[])} blocks Replacement block(s).
+ * @param {(string|string[])} uids          Block UID(s) to replace.
+ * @param {(Object|Object[])} blocks        Replacement block(s).
+ * @param {?string}           blockToSelect UID of the block that should become selected.
  *
  * @return {Object} Action object.
  */
-export function replaceBlocks( uids, blocks ) {
+export function replaceBlocks( uids, blocks, blockToSelect ) {
 	return {
 		type: 'REPLACE_BLOCKS',
 		uids: castArray( uids ),
 		blocks: castArray( blocks ),
 		time: Date.now(),
+		selectBlock: blockToSelect,
 	};
 }
 

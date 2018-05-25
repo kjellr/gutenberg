@@ -426,6 +426,10 @@ export class RichText extends Component {
 	 * @return {{top: number, left: number}} The desired position of the toolbar.
 	 */
 	getFocusPosition( position ) {
+		// if the node was removed or replaced return immediately.
+		if ( ! this.containerRef.current ) {
+			return null;
+		}
 		// The container is relatively positioned.
 		const containerPosition = this.containerRef.current.getBoundingClientRect();
 
@@ -685,6 +689,9 @@ export class RichText extends Component {
 			rect = getRectangleFromRange( this.editor.selection.getRng() );
 		}
 		const focusPosition = this.getFocusPosition( rect );
+		if ( ! focusPosition ) {
+			return;
+		}
 
 		this.setState( { formats, focusPosition, selectedNodeId: this.state.selectedNodeId + 1 } );
 
